@@ -15,4 +15,20 @@ router.get("/getall",async(req,res)=>{
     const contacts=await Contact.find()
     res.send({msg:"contact fetched !",contacts})
 })
+
+//delete Contact
+router.delete("/delete/:id",async(req,res)=>{
+    const {id}=req.params
+    console.log(id)
+   const contact=await  Contact.findOneAndDelete({_id:id})
+    res.send({msg:"contact deleted !", contact})
+
+})
+
+//edit contact
+router.put("/edit/:id",async(req,res)=>{
+    const {id}=req.params
+    const contact=await Contact.findOneAndUpdate({_id:id},{$set:req.body},{new:true})
+    res.send({msg:"contact updated",contact})
+})
 module.exports=router
